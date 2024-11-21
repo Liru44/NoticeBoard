@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/newBoard" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="sequence" value="1">
+    제목: <input type="text" name="title"><br>
+    내용: <textarea name="content" cols="30" rows="10"></textarea><br/>
+    부제목: <input type="text" name="name"><br>
+    <input type="hidden" name="originate" value="2024-11-21 00:00:00">
+    <input type="hidden" name="views" value="0">
+    <input type="submit" value="작성">
+</form>
+</body>

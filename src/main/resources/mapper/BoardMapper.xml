@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Board">
+    <!-- sql문이 작성되는 공간  -->
+    <insert id="newBoard" parameterType="com.noticeboard.Board.dto.BoardDTO">
+        INSERT INTO BOARD(SEQUENCE, TITLE, CONTENT, NAME, ORIGINATE, VIEWS)
+        VALUE(#{sequence}, #{title}, #{content}, #{name}, #{originate}, #{views})
+    </insert>
+</mapper>
