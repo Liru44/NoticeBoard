@@ -16,7 +16,7 @@ public class BoardController {
 
     @GetMapping("/newBoard")
     public String newBoard() {
-        return "save";
+        return "newBoard";
     }
 
     @PostMapping("/newBoard")
