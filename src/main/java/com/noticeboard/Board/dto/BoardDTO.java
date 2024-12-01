@@ -8,19 +8,27 @@ import lombok.ToString;
 @Setter
 @ToString
 public class BoardDTO {
-    private int sequence;
+    private Long id;
     private String title;
     private String content;
-    private String name;
     private String originate;
+    private String editTime;
     private int views;
 
-    public int getSequence() {
-        return sequence;
+    public Long getId() {
+        return id;
     }
 
-    public void setSequence(int sequence) {
-        this.sequence = sequence;
+    public String getEditTime() {
+        return editTime;
+    }
+
+    public void setEditTime(String editTime) {
+        this.editTime = editTime;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -37,14 +45,6 @@ public class BoardDTO {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getOriginate() {

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 상세</title>
+    <style>
+        table, tr, td, th {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<table>
+    <tr>
+        <th>순서</th>
+        <td th:text="${board.id}"></td>
+    </tr>
+    <tr>
+        <th>제목</th>
+        <td th:text="${board.title}"></td>
+    </tr>
+    <tr>
+        <th>작성일</th>
+        <td th:text="${board.originate}"></td>
+    </tr>
+    <tr>
+        <th>조회수</th>
+        <td th:text="${board.views}"></td>
+    </tr>
+    <tr>
+        <th>내용</th>
+        <td th:text="${board.content}"></td>
+    </tr>
+</table>
+<button onclick="boardList()">목록</button>
+<button onclick="editBoard()">수정</button>
+<button onclick="deleteBoard()">삭제</button>
+</body>
+<script th:inline="javascript">
+    const boardList = () => {
+        location.href = "/boardList";
+    }
+    const editBoard = () => {
+        location.href = `/edit/[[${board.id}]]`;
+    }
+    const deleteBoard = () => {
+        location.href = `/delete/[[${board.id}]]`;
+    }
+</script>
+</html>

@@ -3,7 +3,27 @@
 <mapper namespace="Board">
     <!-- sql문이 작성되는 공간  -->
     <insert id="newBoard" parameterType="com.noticeboard.Board.dto.BoardDTO">
-        INSERT INTO BOARD(SEQUENCE, TITLE, CONTENT, NAME, ORIGINATE, VIEWS)
-        VALUE(#{sequence}, #{title}, #{content}, #{name}, #{originate}, #{views})
+        INSERT INTO board(id, title, content, editTime, views)
+        VALUE(#{id}, #{title}, #{content}, #{editTime}, #{views})
     </insert>
+
+    <select id="getBoardList" resultType="com.noticeboard.Board.dto.BoardDTO">
+        SELECT id, title, originate, views FROM board ORDER BY id DESC
+    </select>
+    
+    <update id="updateViews" parameterType="Long">
+        UPDATE board SET views = views + 1 where id = #{id}
+    </update>
+
+    <select id="getBoardInfo" parameterType="Long" resultType="com.noticeboard.Board.dto.BoardDTO">
+        SELECT id, title, content, date_format(originate, "%Y-%m-%d"), views FROM board WHERE id = #{id}
+    </select>
+
+    <update id="editBoard" parameterType="com.noticeboard.Board.dto.BoardDTO">
+        UPDATE board SET title = #{title}, content = #{content} WHERE id = #{id}
+    </update>
+
+    <delete id="deleteBoard" parameterType="Long">
+        DELETE FROM board WHERE id = #{id}
+    </delete>
 </mapper>
