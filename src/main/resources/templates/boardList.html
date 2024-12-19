@@ -4,25 +4,82 @@
     <meta charset="UTF-8">
     <title>게시글 목록</title>
     <style>
-        table, tr, td, th {
-            border: 1px solid black;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 1.5em;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+            background-color: #4CAF50;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 14px;
+            margin: 20px 0;
+            display: inline-block;
+        }
+
+        a:hover {
+            background-color: #45a049;
+        }
+
+        table {
+            width: 90%;
+            max-width: 800px;
+            margin: 20px auto;
             border-collapse: collapse;
+            background: white;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         th, td {
-            padding: 10px;
+            padding: 12px 15px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
         }
     </style>
 </head>
 <body>
+<header>게시판</header>
 <a href="/newBoard">글쓰기</a>
 <table>
+    <thead>
     <tr>
         <th>번호</th>
         <th>제목</th>
         <th>작성일</th>
         <th>조회수</th>
     </tr>
+    </thead>
+    <tbody>
     <tr th:each="board: ${boardList}">
         <td th:text="${board.id}"></td>
         <td>
@@ -31,6 +88,7 @@
         <td th:text="${board.originate}"></td>
         <td th:text="${board.views}"></td>
     </tr>
+    </tbody>
 </table>
 </body>
 </html>
