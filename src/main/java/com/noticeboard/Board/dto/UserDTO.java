@@ -1,11 +1,17 @@
 package com.noticeboard.Board.dto;
 
+import lombok.*;
+
+@Data
+@Getter @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserDTO {
     private String id;
     private String password;
     private String name;
     private String email;
-    private String phone;
+    private int phone;
 
     public String getId() {
         return id;
@@ -39,11 +45,11 @@ public class UserDTO {
         this.email = email;
     }
 
-    public String getPhone() {
+    public int getPhone() {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    public void setPhone(int phone) {
         this.phone = phone;
     }
 }
