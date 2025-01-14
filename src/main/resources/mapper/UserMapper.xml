@@ -3,8 +3,8 @@
 <mapper namespace="com.noticeboard.Board.mapper.UserMapper">
     <!-- sql문이 작성되는 공간  -->
     <insert id="signup" parameterType="com.noticeboard.Board.dto.UserDTO">
-        INSERT INTO user(id, password, name, email, phone)
-            VALUE(#{id}, #{password}, #{name}, #{email}, #{phone})
+        INSERT INTO user(id, password, name, email, phone, role)
+            VALUE(#{id}, #{password}, #{name}, #{email}, #{phone}, #{role})
     </insert>
 
     <select id="getUserById" parameterType="String" resultType="com.noticeboard.Board.component.CustomUserDetails">

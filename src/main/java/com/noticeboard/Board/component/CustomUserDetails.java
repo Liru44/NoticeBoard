@@ -14,14 +14,18 @@ import java.util.Collection;
 public class CustomUserDetails implements UserDetails {
     private String id;
     private String password;
-    private String auth;
-    private int enabled;
+    private String name;
+    private String role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        ArrayList<GrantedAuthority> authList = new ArrayList<GrantedAuthority>();
-        authList.add(new SimpleGrantedAuthority(auth));
-        return authList;
+        System.out.println("Assigned role : " + role);
+        if (role == null || role.trim().isEmpty()) {
+            throw new IllegalArgumentException("Role cannot be null or empty");
+        }
+        ArrayList<GrantedAuthority> roleList = new ArrayList<GrantedAuthority>();
+        roleList.add(new SimpleGrantedAuthority(role));
+        return roleList;
     }
 
     @Override
@@ -32,6 +36,10 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public String getUsername() {
         return id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     @Override
@@ -51,6 +59,6 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return enabled == 1;
+        return true;
     }
 }

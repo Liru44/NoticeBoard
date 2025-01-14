@@ -32,9 +32,4 @@ public class UserController {
     public String login() {
         return "login";
     }
-
-    @PostMapping("/login")
-    public String login_proc() {
-        return "redirect:/boardList";
-    }
 }

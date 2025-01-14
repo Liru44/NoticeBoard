@@ -14,26 +14,25 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                .csrf((csrfConfig) -> csrfConfig.disable())
                 .authorizeRequests()
                     .requestMatchers("/", "/login", "/signup", "/boardList").permitAll()
                     .requestMatchers("/newBoard").authenticated()
-                    .requestMatchers("/**").hasRole("ADMIN")
                     .anyRequest().permitAll();
         http
                 .formLogin(login -> login
                         .loginPage("/login")
                         .loginProcessingUrl("/login_proc")
-                        .usernameParameter("username")
+                        .usernameParameter("id")
                         .passwordParameter("password")
                         .defaultSuccessUrl("/boardList")
-                        .failureForwardUrl("/login")
+                        .failureUrl("/login?error=true")
                         .permitAll());
-         http
+        http
                  .logout(logout -> logout //로그아웃 설정
                          .logoutUrl("/logout")
-                         .logoutSuccessUrl("/"))
-                 .csrf((csrfConfig) -> csrfConfig.disable());
-
+                         .logoutSuccessUrl("/")
+                         .invalidateHttpSession(true));
         return http.build();
     }
 

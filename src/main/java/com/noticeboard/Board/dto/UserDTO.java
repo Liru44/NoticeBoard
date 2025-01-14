@@ -13,6 +13,8 @@ public class UserDTO {
     private String email;
     private int phone;
 
+    private Role role;
+
     public String getId() {
         return id;
     }
@@ -51,5 +53,9 @@ public class UserDTO {
 
     public void setPhone(int phone) {
         this.phone = phone;
+    }
+
+    public enum Role {
+        USER, ADMIN
     }
 }

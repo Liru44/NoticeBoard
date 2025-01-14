@@ -29,4 +29,10 @@ public class UserService {
         log.info("SignUp User Password : " + password);
         userMapper.signup(userDTO);
     }
+
+    /*public UserDTO login(String id, String inputPassword) {
+        UserDTO userDTO = new UserDTO();
+        userMapper.getUserById(id);
+        String password = userDTO.getPassword();
+    }*/
 }

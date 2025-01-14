@@ -70,6 +70,9 @@
 <body>
 <header>게시판</header>
 <a href="/newBoard">글쓰기</a>
+<a href="/login">글쓰기</a>
+<a href="/logout">로그아웃</a>
+<p th:if="${userName != null and userName != ''}">안녕하세요, <span th:text="${userName}"사용자></span>님</p>
 <table>
     <thead>
     <tr>
