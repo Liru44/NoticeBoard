@@ -2,19 +2,144 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>게시글 수정</title>
+    <title>게시글 상세</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 1.5em;
+            position: relative;
+        }
+
+        header .auth-buttons {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .auth-buttons a {
+            text-decoration: none;
+            color: white;
+            background-color: #4CAF50;
+            padding: 8px 12px;
+            border-radius: 5px;
+            margin-left: 10px;
+            font-size: 14px;
+        }
+
+        .auth-buttons a:hover {
+            background-color: #45a049;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            background: white;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        .button-group {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .button-group button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+
+        .button-group button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-<form th:action="@{|/edit/${board.id}|}" method="post" name="editForm">
-    <input type="hidden" name="id" th:value="${board.id}">
-    제목: <input type="text" name="title" th:value="${board.title}" readonly><br>
-    내용: <textarea name="content" cols="30" rows="10" th:text="${board.content}"></textarea><br>
-    <input type="button" value="수정" onclick="board_update()">
-</form>
-</body>
+<header>
+    게시글 수정
+    <div class="auth-buttons" th:if="${session.loggedIn}">
+        <a href="/logout">로그아웃</a>
+    </div>
+    <div class="auth-buttons" th:unless="${session.loggedIn}">
+        <a href="/login">로그인</a>
+        <a href="/signup">회원가입</a>
+    </div>
+</header>
+<div class="container">
+    <table>
+        <tr>
+            <th>순서</th>
+            <td th:text="${board.id}"></td>
+        </tr>
+        <tr>
+            <th>제목</th>
+            <td th:text="${board.title}"></td>
+        </tr>
+        <tr>
+            <th>작성일</th>
+            <td th:text="${board.originate}"></td>
+        </tr>
+        <tr>
+            <th>조회수</th>
+            <td th:text="${board.views}"></td>
+        </tr>
+        <tr>
+            <th>내용</th>
+            <td th:text="${board.content}"></td>
+        </tr>
+    </table>
+    <div class="button-group">
+        <button onclick="boardList()">목록</button>
+        <button onclick="editBoard()">수정</button>
+        <button onclick="deleteBoard()">삭제</button>
+    </div>
+</div>
 <script th:inline="javascript">
-    const board_update = () => {
-        editForm.submit();
-    }
+    const boardList = () => {
+        location.href = "/boardList";
+    };
+    const editBoard = () => {
+        location.href = `/edit/[[${board.id}]]`;
+    };
+    const deleteBoard = () => {
+        location.href = `/delete/[[${board.id}]]`;
+    };
 </script>
+</body>
 </html>
