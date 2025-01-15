@@ -1,13 +1,11 @@
 package com.noticeboard.Board.controlloer;
 
-import com.noticeboard.Board.StringUtil;
 import com.noticeboard.Board.component.CustomUserDetails;
 import com.noticeboard.Board.dto.BoardDTO;
 import com.noticeboard.Board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,6 +43,8 @@ public class BoardController {
         if (authentication != null && authentication.isAuthenticated() && !(authentication.getPrincipal() instanceof String)) {
             CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
             model.addAttribute("userName", userDetails.getName());
+        } else {
+            model.addAttribute("userName", null);
         }
         return "boardList";
     }

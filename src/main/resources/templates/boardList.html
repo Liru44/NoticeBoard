@@ -71,12 +71,12 @@
 <body>
     <header>
         게시판
-        <div class="auth-buttons" th:if="${session.loggedIn}">
-            <a href="/logout">로그아웃</a>
+        <div class="auth-buttons" th:if="${userName != null and userName != ''}">
+            <a id="logout" href="/logout">로그아웃</a>
         </div>
-        <div class="auth-buttons" th:unless="${session.loggedIn}">
-            <a href="/login">로그인</a>
-            <a href="/signup">회원가입</a>
+        <div class="auth-buttons" th:unless="${userName != null and userName != ''}">
+            <a id="login" href="/login">로그인</a>
+            <a id="signup" href="/signup">회원가입</a>
         </div>
     </header>
     <a href="/newBoard">글쓰기</a>
