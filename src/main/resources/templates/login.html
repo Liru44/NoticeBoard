@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>로그인</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -106,17 +107,19 @@
     </form>
 <script type="text/javascript">
     function loginCheck(event) {
-        var id = document.getElementById('id').value;
-        var password = document.getElementById('password').value;
+        var id = $('#id').val();
+        var password = $('#password').val();
 
         event.preventDefault();
 
         if (!id){
             alert("아이디를 입력하세요");
+            $('#id').focus();
             return false;
         }
         else if (!password){
             alert("비밀번호를 입력하세요");
+            $('#password').focus();
             return false;
         }
     }

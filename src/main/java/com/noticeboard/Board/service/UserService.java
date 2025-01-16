@@ -1,5 +1,6 @@
 package com.noticeboard.Board.service;
 
+import com.noticeboard.Board.component.CustomUserDetails;
 import com.noticeboard.Board.dto.UserDTO;
 import com.noticeboard.Board.mapper.UserMapper;
 import org.slf4j.Logger;
@@ -30,9 +31,12 @@ public class UserService {
         userMapper.signup(userDTO);
     }
 
-    /*public UserDTO login(String id, String inputPassword) {
-        UserDTO userDTO = new UserDTO();
-        userMapper.getUserById(id);
-        String password = userDTO.getPassword();
-    }*/
+    public boolean isDuplicatedId(String id) {
+        boolean isDuplicated = false;
+        CustomUserDetails customUserDetails = userMapper.getUserById(id);
+        if (customUserDetails != null) {
+            isDuplicated = true;
+        }
+        return isDuplicated;
+    }
 }

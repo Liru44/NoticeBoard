@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
     private final UserMapper userMapper;
-    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
