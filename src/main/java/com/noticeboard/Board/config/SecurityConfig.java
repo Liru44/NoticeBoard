@@ -26,7 +26,6 @@ public class SecurityConfig {
                         .usernameParameter("id")
                         .passwordParameter("password")
                         .defaultSuccessUrl("/boardList")
-                        .failureUrl("/login?error=true")
                         .permitAll());
         http
                  .logout(logout -> logout //로그아웃 설정

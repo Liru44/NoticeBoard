@@ -102,18 +102,22 @@
         <label>비밀번호</label>
         <input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요"/>
 
-        <input type="submit" vlaue="로그인" onclick="logincheck()"/>
+        <input type="submit" vlaue="로그인" onclick="loginCheck(event)"/>
     </form>
 <script type="text/javascript">
-    function logincheck() {
+    function loginCheck(event) {
         var id = document.getElementById('id').value;
         var password = document.getElementById('password').value;
 
+        event.preventDefault();
+
         if (!id){
             alert("아이디를 입력하세요");
+            return false;
         }
         else if (!password){
             alert("비밀번호를 입력하세요");
+            return false;
         }
     }
 </script>
