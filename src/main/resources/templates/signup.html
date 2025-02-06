@@ -178,11 +178,58 @@
 
         <input type="hidden" id="role" name="role" value="ROLE_USER"/>
 
-        <button type="submit" ondblclick="false">가입하기</button>
+        <button type="submit" ondblclick="false" onclick="signupCheck(event)">가입하기</button>
     </form>
 </div>
 <script type="text/javascript">
     //아이디 중복체크
+    function signupCheck() {
+        var id = $('#id').val();
+        var password = $('#password').val();
+        var passwordCheck = $('#passwordCheck').val();
+        var name = $('#name').val();
+        var email = $('#email').val();
+        var phone = $('#phone').val();
+
+        event.preventDefault();
+
+        if (!id){
+            alert("아이디를 입력하세요");
+            $('#id').focus();
+            return false;
+        }
+        else if (!password) {
+            alert("비밀번호를 입력하세요");
+            $('#password').focus();
+            return false;
+        }
+        else if (!passwordCheck) {
+            alert("비밀번호 확인란를 입력하세요");
+            $('#passwordCheck').focus();
+            return false;
+        }
+        else if (password !== passwordCheck) {
+            alert("비밀번호가 일치하지 않습니다");
+            $('#passwordCheck').focus();
+            return false;
+        }
+        else if (!name) {
+            alert("이름을 입력하세요");
+            $('#name').focus();
+            return false;
+        }
+        else if (!email) {
+            alert("이메일을 입력하세요");
+            $('#email').focus();
+            return false;
+        }
+        else if (!phone) {
+            alert("전화번호를 입력하세요");
+            $('#phone').focus();
+            return false;
+        }
+    }
+
     function duplicatedCheck() {
         var id = $('#id').val();
 
