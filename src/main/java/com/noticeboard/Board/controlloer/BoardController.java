@@ -43,6 +43,8 @@ public class BoardController {
         if (authentication != null && authentication.isAuthenticated() && !(authentication.getPrincipal() instanceof String)) {
             CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
             model.addAttribute("userName", userDetails.getName());
+            String userRole = userDetails.getRole();
+            model.addAttribute("role", userRole);
         } else {
             model.addAttribute("userName", null);
         }
@@ -50,7 +52,7 @@ public class BoardController {
     }
 
     //게시글 상제 조회
-    @GetMapping("/{id}")
+    @GetMapping("/board/{id}")
     public String getBoardInfo(@PathVariable("id") Long id, Model model) {
         //조회수 처리
         boardService.updateViews(id);
@@ -62,14 +64,14 @@ public class BoardController {
     }
 
     //게시글 수정
-    @GetMapping("/edit/{id}")
+    @GetMapping("/board/edit/{id}")
     public String editBoard(@PathVariable("id") Long id, Model model) {
         BoardDTO boardDTO = boardService.getBoardInfo(id);
         model.addAttribute("board", boardDTO);
         return "editBoard";
     }
 
-    @PostMapping("/edit/{id}")
+    @PostMapping("/board/edit/{id}")
     public String editBoard(BoardDTO boardDTO, Model model) {
         //수정 기능
         boardService.editBoard(boardDTO);
@@ -77,11 +79,11 @@ public class BoardController {
         //게시글 다시 조회
         boardDTO = boardService.getBoardInfo(boardDTO.getId());
         model.addAttribute("board", boardDTO);
-        return "boardInfo";
+        return "redirect:/board/" + boardDTO.getId();
     }
 
     //게시글 삭제
-    @GetMapping("/delete/{id}")
+    @GetMapping("/delete/board/{id}")
     public String deleteBoard(@PathVariable("id") Long id) {
         boardService.deleteBoard(id);
         return "redirect:/boardList";

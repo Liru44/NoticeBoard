@@ -5,10 +5,9 @@ import com.noticeboard.Board.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -34,13 +33,59 @@ public class UserController {
     //아이디 중복 체크
     @GetMapping("isDuplicatedId")
     @ResponseBody
-    public boolean isDuplicatedId(@RequestParam("id") String id, Model model) {
+    public boolean isDuplicatedId(@RequestParam("id") String id) {
         boolean isDuplicated = userService.isDuplicatedId(id);
         return isDuplicated;
     }
 
+    //로그인 페이지 이동
     @GetMapping("/login")
     public String login() {
         return "login";
+    }
+
+    //관리자 페이지
+    @GetMapping("/adminPage")
+    public String adminPage(Model model) {
+        List<UserDTO> userList = this.getUserList();
+        if (!userList.isEmpty()) {
+            model.addAttribute("userList", userList);
+        }
+        return "adminPage";
+    }
+
+    //유저 목록 조회
+    @GetMapping("/userList")
+    public List<UserDTO> getUserList() {
+        List<UserDTO> userList = userService.getUserList();
+        return userList;
+    }
+
+    //유저 상제 조회
+    @GetMapping("/user/{id}")
+    public String getUserInfo(@PathVariable("id") String id, Model model) {
+        UserDTO userDTO = userService.getUserInfo(id);
+        if (userDTO != null) {
+            model.addAttribute("user", userDTO);
+        }
+        return "userInfo";
+    }
+
+    @GetMapping("/user/edit/{id}")
+    public String editUser(@PathVariable("id") String id, Model model) {
+        UserDTO userDTO = userService.getUserInfo(id);
+        if (userDTO != null) {
+            model.addAttribute("user", userDTO);
+        }
+        return "editUser";
+    }
+
+    @PostMapping("/user/edit/{id}")
+    public String editUser(UserDTO userDTO, Model model) {
+        userService.editUser(userDTO);
+
+        userDTO = userService.getUserInfo(userDTO.getId());
+        model.addAttribute("user", userDTO);
+        return "redirect:/user" + userDTO.getId();
     }
 }

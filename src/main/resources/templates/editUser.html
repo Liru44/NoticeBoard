@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>사용자 상세 조회</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<form th:action="@{|/user/edit/${user.id}|}" method="post" id="editForm" name="editForm">
+<div class="container">
+<table>
+    <tr>
+      <td>ID</td>
+      <td th:text="${user.id}"></td>
+    </tr>
+    <tr>
+      <td>이름</td>
+      <td>
+          <input type="text" id="name" name="name" th:value="${user.name}"/>
+      </td>
+    </tr>
+    <tr>
+      <td>이메일</td>
+      <td>
+          <input type="text" id="email" name="email" th:value="${user.email}"/>
+      </td>
+    </tr>
+    <tr>
+        <td>전화번호</td>
+        <td>
+            <input type="text" id="phone" name="phone" th:value="${user.phone}"/>
+        </td>
+    </tr>
+    <tr>
+        <td>권한</td>
+        <td><input type="radio" name="role" value="ROLE_ADMIN"/>관리자</td>
+        <td><input type="radio" name="role" value="ROLE_USER"/>사용자</td>
+    </tr>
+</table>
+</div>
+<input type="submit" value="수정" onclick="user_update(event)"/>
+</form>
+<script type="text/javascript">
+    function user_update(event) {
+        var name = $('#name').val();
+        var email = $('#email').val();
+        var phone = $('#phone').val();
+        var role = $("input[name='role']:checked").val();
+
+        event.preventDefault();
+
+        if (name == null || name == '') {
+            alert('이름 입력은 필수입니다. ');
+            $('#name').focus();
+            return false;
+        } else if (email == null || email == '') {
+            alert('이메일 입력은 필수입니다. ');
+            $('#email').focus();
+            return false;
+        } else if (phone == null || phone == '') {
+            alert('전화번호 입력은 필수입니다. ');
+            $('#phone').focus();
+            return false;
+        } else if (role == null || role == '') {
+            alert('권한을 선택해 주십시오.  ');
+            return false;
+        }
+        editForm.submit();
+    }
+</script>
+</body>
+</html>

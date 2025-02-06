@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
     Logger log = LoggerFactory.getLogger(this.getClass());
@@ -38,5 +40,17 @@ public class UserService {
             isDuplicated = true;
         }
         return isDuplicated;
+    }
+
+    public List<UserDTO> getUserList() {
+        return userMapper.getUserList();
+    }
+
+    public UserDTO getUserInfo(String id) {
+        return userMapper.getUserInfo(id);
+    }
+
+    public void editUser(UserDTO userDTO) {
+        userMapper.editUser(userDTO);
     }
 }

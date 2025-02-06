@@ -121,10 +121,11 @@
             alert("비밀번호를 입력하세요");
             $('#password').focus();
             return false;
+        } else {
+            document.getElementById('loginForm').submit();
         }
     }
 </script>
-
 </div>
 </body>
 </html>

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>게시글 목록</title>
+    <title>관리자 페이지</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -69,37 +69,25 @@
     </style>
 </head>
 <body>
-    <header>
-        게시판
-        <div class="auth-buttons" th:if="${userName != null and userName != ''}">
-            <a id="logout" href="/logout">로그아웃</a>
-            <a id="adminPage" th:if="${role != null and #lists.contains(role, 'ROLE_ADMIN')}" href="/adminPage">관리자 페이지</a>
-        </div>
-        <div class="auth-buttons" th:unless="${userName != null and userName != ''}">
-            <a id="login" href="/login">로그인</a>
-            <a id="signup" href="/signup">회원가입</a>
-        </div>
-    </header>
-    <a href="/newBoard">글쓰기</a>
-    </div>
-<p th:if="${userName != null and userName != ''}">안녕하세요, <span th:text="${userName}"사용자></span>님</p>
 <table>
     <thead>
     <tr>
-        <th>번호</th>
-        <th>제목</th>
-        <th>작성일</th>
-        <th>조회수</th>
+        <th>ID</th>
+        <th>이름</th>
+        <th>이메일</th>
+        <th>전화번호</th>
+        <th>권한</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="board: ${boardList}">
-        <td th:text="${board.id}"></td>
+    <tr th:each="user: ${userList}">
+        <td th:text="${user.id}"></td>
         <td>
-            <a th:text="${board.title}" th:href="@{board/{id}(id=${board.id})}"></a>
+            <a th:text="${user.name}" th:href="@{user/{id}(id=${user.id})}"></a>
         </td>
-        <td th:text="${board.originate}"></td>
-        <td th:text="${board.views}"></td>
+        <td th:text="${user.email}"></td>
+        <td th:text="${user.phone}"></td>
+        <td th:text="${user.role}"></td>
     </tr>
     </tbody>
 </table>

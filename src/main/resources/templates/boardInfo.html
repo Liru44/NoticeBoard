@@ -125,21 +125,10 @@
         </tr>
     </table>
     <div class="button-group">
-        <button onclick="boardList()">목록</button>
-        <button onclick="editBoard()">수정</button>
-        <button onclick="deleteBoard()">삭제</button>
+        <a href="/boardList">목록</a>
+        <a th:href="@{edit/{id}(id=${board.id})}">수정</a>
+        <a th:href="@{delete/{id}(id=${board.id})}">삭제</a>
     </div>
 </div>
-<script th:inline="javascript">
-    const boardList = () => {
-        location.href = "/boardList";
-    };
-    const editBoard = () => {
-        location.href = `/edit/[[${board.id}]]`;
-    };
-    const deleteBoard = () => {
-        location.href = `/delete/[[${board.id}]]`;
-    };
-</script>
 </body>
 </html>

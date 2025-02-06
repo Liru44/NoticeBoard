@@ -10,4 +10,16 @@
     <select id="getUserById" parameterType="String" resultType="com.noticeboard.Board.component.CustomUserDetails">
         SELECT * FROM user WHERE id = #{id}
     </select>
+
+    <select id="getUserList" resultType="com.noticeboard.Board.dto.UserDTO">
+        SELECT id, password, name, email, phone, role FROM user ORDER BY name DESC
+    </select>
+
+    <select id="getUserInfo" parameterType="String" resultType="com.noticeboard.Board.dto.UserDTO">
+        SELECT * FROM user where id = #{id}
+    </select>
+
+    <update id="editUser" parameterType="com.noticeboard.Board.dto.UserDTO">
+        UPDATE user SET name = #{name}, email = #{email}, phone = #{phone}, role = #{role} WHERE id = #{id}
+    </update>
 </mapper>

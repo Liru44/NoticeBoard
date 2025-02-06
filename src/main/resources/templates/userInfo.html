@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>사용자 상세 조회</title>
+</head>
+<body>
+<div class="container">
+  <table>
+    <tr>
+      <th>ID</th>
+      <td th:text="${user.id}"></td>
+    </tr>
+    <tr>
+      <th>이름</th>
+      <td th:text="${user.name}"></td>
+    </tr>
+    <tr>
+      <th>이메일</th>
+      <td th:text="${user.email}"></td>
+    </tr>
+    <tr>
+      <th>전화번호</th>
+      <td th:text="${user.phone}"></td>
+    </tr>
+    <tr>
+      <th>권한</th>
+      <td th:text="${user.role}"></td>
+    </tr>
+  </table>
+</div>
+<a th:href="@{edit/{id}(id=${user.id})}">회원정보 수정</a>
+</body>
+</html>
