@@ -3,12 +3,12 @@
 <mapper namespace="Board">
     <!-- sql문이 작성되는 공간  -->
     <insert id="newBoard" parameterType="com.noticeboard.Board.dto.BoardDTO">
-        INSERT INTO board(id, title, content, editTime, views)
-        VALUE(#{id}, #{title}, #{content}, #{editTime}, #{views})
+        INSERT INTO board(id, title, content, editTime, views, originator)
+        VALUE(#{id}, #{title}, #{content}, #{editTime}, #{views}, #{originator})
     </insert>
 
     <select id="getBoardList" resultType="com.noticeboard.Board.dto.BoardDTO">
-        SELECT id, title, originate, views FROM board ORDER BY id DESC
+        SELECT id, title, originate, views, originator FROM board ORDER BY id DESC
     </select>
     
     <update id="updateViews" parameterType="Long">
@@ -16,7 +16,7 @@
     </update>
 
     <select id="getBoardInfo" parameterType="Long" resultType="com.noticeboard.Board.dto.BoardDTO">
-        SELECT id, title, content, date_format(originate, "%Y-%m-%d"), views FROM board WHERE id = #{id}
+        SELECT id, title, content, date_format(originate, "%Y-%m-%d"), views, originator FROM board WHERE id = #{id}
     </select>
 
     <update id="editBoard" parameterType="com.noticeboard.Board.dto.BoardDTO">

@@ -90,6 +90,7 @@
         <th>제목</th>
         <th>작성일</th>
         <th>조회수</th>
+        <th>작성자</th>
     </tr>
     </thead>
     <tbody>
@@ -100,6 +101,7 @@
         </td>
         <td th:text="${board.originate}"></td>
         <td th:text="${board.views}"></td>
+        <td th:text="${board.originatorName}"></td>
     </tr>
     </tbody>
 </table>

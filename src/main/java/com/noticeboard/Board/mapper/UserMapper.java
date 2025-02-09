@@ -17,4 +17,6 @@ public interface UserMapper {
     UserDTO getUserInfo(String id);
 
     void editUser(UserDTO userDTO);
+
+    void changePassword(String id, String password);
 }

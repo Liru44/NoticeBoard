@@ -22,4 +22,8 @@
     <update id="editUser" parameterType="com.noticeboard.Board.dto.UserDTO">
         UPDATE user SET name = #{name}, email = #{email}, phone = #{phone}, role = #{role} WHERE id = #{id}
     </update>
+
+    <update id="changePassword" parameterType="String">
+        UPDATE user SET password = #{password} WHERE id = #{id}
+    </update>
 </mapper>

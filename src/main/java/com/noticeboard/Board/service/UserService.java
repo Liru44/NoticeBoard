@@ -53,4 +53,10 @@ public class UserService {
     public void editUser(UserDTO userDTO) {
         userMapper.editUser(userDTO);
     }
+
+    public void changePassword(String id, String password) {
+        password = passwordEncoder.encode(password);
+        log.info("SignUp User Password : " + password);
+        userMapper.changePassword(id, password);
+    }
 }

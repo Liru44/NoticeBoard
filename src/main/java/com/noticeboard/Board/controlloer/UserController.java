@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @Slf4j
@@ -71,6 +72,7 @@ public class UserController {
         return "userInfo";
     }
 
+    //유저 정보 수정
     @GetMapping("/user/edit/{id}")
     public String editUser(@PathVariable("id") String id, Model model) {
         UserDTO userDTO = userService.getUserInfo(id);
@@ -87,5 +89,19 @@ public class UserController {
         userDTO = userService.getUserInfo(userDTO.getId());
         model.addAttribute("user", userDTO);
         return "redirect:/user" + userDTO.getId();
+    }
+
+    @GetMapping("/changePassword/{userID}")
+    public String changePassword(@PathVariable("userID") String id, Model model) {
+        model.addAttribute("userID", id);
+        return "changePassword";
+    }
+
+    @PostMapping("/changePassword/{userID}")
+    @ResponseBody
+    public String changePassword(@PathVariable("userID") String id, @RequestParam String password) {
+        userService.changePassword(id, password);
+
+        return "<script>alert('비밀번호가 변경되었습니다. '); window.close();</script>";
     }
 }

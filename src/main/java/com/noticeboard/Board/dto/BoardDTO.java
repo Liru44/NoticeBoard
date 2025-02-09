@@ -14,6 +14,8 @@ public class BoardDTO {
     private String originate;
     private String editTime;
     private int views;
+    private String originator;
+    private String originatorName;
 
     public Long getId() {
         return id;
@@ -61,5 +63,21 @@ public class BoardDTO {
 
     public void setViews(int views) {
         this.views = views;
+    }
+
+    public String getOriginator() {
+        return originator;
+    }
+
+    public void setOriginator(String originator) {
+        this.originator = originator;
+    }
+
+    public String getOriginatorName() {
+        return originatorName;
+    }
+
+    public void setOriginatorName(String originatorName) {
+        this.originatorName = originatorName;
     }
 }

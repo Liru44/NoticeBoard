@@ -12,12 +12,19 @@
     <tr>
       <td>ID</td>
       <td th:text="${user.id}"></td>
+
     </tr>
     <tr>
       <td>이름</td>
       <td>
           <input type="text" id="name" name="name" th:value="${user.name}"/>
       </td>
+    </tr>
+    <tr>
+        <td>비밀번호 변경</td>
+        <td>
+            <input type="button" id="changePassword" name="changePassword" value="비밀번호 변경" onclick="passwordPopup()"/>
+        </td>
     </tr>
     <tr>
       <td>이메일</td>
@@ -37,6 +44,7 @@
         <td><input type="radio" name="role" value="ROLE_USER"/>사용자</td>
     </tr>
 </table>
+<input type="hidden" id="userID" name="userID" th:value="${user.id}"/>
 </div>
 <input type="submit" value="수정" onclick="user_update(event)"/>
 </form>
@@ -66,6 +74,12 @@
             return false;
         }
         editForm.submit();
+    }
+
+    function passwordPopup() {
+        debugger;
+        var userID = $('#userID').val();
+        window.open('/changePassword/' + userID, 'popup', 'width=700, height=600, top=50, left=50, scrollbars=yes')
     }
 </script>
 </body>

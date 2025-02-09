@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>게시글 상세</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -93,14 +94,22 @@
 <body>
 <header>
     게시글 상세
-    <div class="auth-buttons" th:if="${session.loggedIn}">
+    <div class="auth-buttons" th:if="${loggedIn}">
         <a href="/logout">로그아웃</a>
     </div>
-    <div class="auth-buttons" th:unless="${session.loggedIn}">
+    <div class="auth-buttons" th:unless="${loggedIn}">
         <a href="/login">로그인</a>
         <a href="/signup">회원가입</a>
     </div>
 </header>
+<script th:inline="javascript" type="text/javascript">
+    window.onload = function() {
+        if (![[${originator}]]) {
+            $('#editButton').css('display', 'none');
+            $('#deleteButton').css('display', 'none');
+        }
+    }
+</script>
 <div class="container">
     <table>
         <tr>
@@ -126,8 +135,8 @@
     </table>
     <div class="button-group">
         <a href="/boardList">목록</a>
-        <a th:href="@{edit/{id}(id=${board.id})}">수정</a>
-        <a th:href="@{delete/{id}(id=${board.id})}">삭제</a>
+        <a id="editButton" th:href="@{edit/{id}(id=${board.id})}">수정</a>
+        <a id="deleteButton" th:href="@{delete/{id}(id=${board.id})}">삭제</a>
     </div>
 </div>
 </body>
