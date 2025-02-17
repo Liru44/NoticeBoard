@@ -17,6 +17,9 @@ spring:
     resources:
       add-mappings: false
 
+  jackson:
+    time-zone: Asia/Seoul
+
 # mybatis
 mybatis:
   config-location: classpath:mybatis-config.xml

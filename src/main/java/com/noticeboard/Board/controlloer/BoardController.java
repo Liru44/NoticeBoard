@@ -2,8 +2,10 @@ package com.noticeboard.Board.controlloer;
 
 import com.noticeboard.Board.component.CustomUserDetails;
 import com.noticeboard.Board.dto.BoardDTO;
+import com.noticeboard.Board.dto.ReplyDTO;
 import com.noticeboard.Board.dto.UserDTO;
 import com.noticeboard.Board.service.BoardService;
+import com.noticeboard.Board.service.ReplyService;
 import com.noticeboard.Board.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -23,6 +26,7 @@ import java.util.List;
 public class BoardController {
     private final BoardService boardService;
     private final UserService userService;
+    private final ReplyService replyService;
 
     //게시글 작성
     @GetMapping("/newBoard")
@@ -87,20 +91,39 @@ public class BoardController {
         BoardDTO boardDTO = boardService.getBoardInfo(id);
         model.addAttribute("board", boardDTO);
 
+        //해당하는 게시글의 댓글 조회
+        List<ReplyDTO> replyList =  replyService.getReplyList(id);
+        if (!replyList.isEmpty()) {
+            model.addAttribute("replyList", replyList);
+        } else {
+            model.addAttribute("replyList", new ArrayList<>());
+        }
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         boolean isLoggedIn = authentication != null && authentication.isAuthenticated() && !(authentication.getPrincipal() instanceof String);
         model.addAttribute("loggedIn", isLoggedIn);
+
+        //유저 정보
         if (isLoggedIn) {
             CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+            String userID = userDetails.getUsername();
             String userRole = userDetails.getRole();
+
+            //UserID model로 넘김
+            model.addAttribute("userID", userID);
+
+            //작성자면 수정, 삭제 가능
             if (userDetails.getUsername().equals(boardDTO.getOriginator()) || userRole.equals("ROLE_ADMIN")) {
                 model.addAttribute("originator", true);
             } else {
                 model.addAttribute("originator", false);
             }
         } else {
+            //유저가 로그인 한 상태가 아니면 userID는 공백으로 넘김
+            model.addAttribute("userID", "");
             model.addAttribute("originator", false);
         }
+
         return "boardInfo";
     }
 

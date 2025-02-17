@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @ToString
@@ -11,7 +13,7 @@ public class BoardDTO {
     private Long id;
     private String title;
     private String content;
-    private String originate;
+    private LocalDateTime originate;
     private String editTime;
     private int views;
     private String originator;
@@ -49,11 +51,11 @@ public class BoardDTO {
         this.content = content;
     }
 
-    public String getOriginate() {
+    public LocalDateTime getOriginate() {
         return originate;
     }
 
-    public void setOriginate(String originate) {
+    public void setOriginate(LocalDateTime originate) {
         this.originate = originate;
     }
 

@@ -16,7 +16,7 @@
     </update>
 
     <select id="getBoardInfo" parameterType="Long" resultType="com.noticeboard.Board.dto.BoardDTO">
-        SELECT id, title, content, date_format(originate, "%Y-%m-%d"), views, originator FROM board WHERE id = #{id}
+        SELECT id, title, content, date_format(originate, '%Y-%m-%d'), views, originator FROM board WHERE id = #{id}
     </select>
 
     <update id="editBoard" parameterType="com.noticeboard.Board.dto.BoardDTO">

@@ -102,14 +102,6 @@
         <a href="/signup">회원가입</a>
     </div>
 </header>
-<script th:inline="javascript" type="text/javascript">
-    window.onload = function() {
-        if (![[${originator}]]) {
-            $('#editButton').css('display', 'none');
-            $('#deleteButton').css('display', 'none');
-        }
-    }
-</script>
 <div class="container">
     <table>
         <tr>
@@ -139,8 +131,17 @@
         <a id="deleteButton" th:href="@{delete/{id}(id=${board.id})}">삭제</a>
     </div>
 </div>
-<div class="container" th:insert="~{boardReply}">
-
+<div class="container" th:insert="~{newReply(userID=${userID}, boardID=${board.id})}">
 </div>
+<div class="container" th:insert="~{replyList :: replyList(replyList=${replyList})}" id="replyList" th:if="${replyList != null && !#lists.isEmpty(replyList)}">
+</div>
+<script th:inline="javascript" type="text/javascript">
+    window.onload = function() {
+        if (![[${originator}]]) {
+            $('#editButton').css('display', 'none');
+            $('#deleteButton').css('display', 'none');
+        }
+    }
+</script>
 </body>
 </html>

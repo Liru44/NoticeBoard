@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<iframe name="hiddenFrame" style="display:none;"></iframe>
+<form th:action="@{/reply}" method="post" id="submitForm" name="submitForm">
+    댓글<br/>
+    <textarea id="content" name="content" style="width: 97%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;" placeholder="내용을 입력하세요"></textarea>
+    <br/>
+    <input type="hidden" th:value="${userID}" id="originator" name="originator"/>
+    <input type="hidden" th:value="${boardID}" id="board_id" name="board_id"/>
+    <input type="button" value="작성" onclick="validateLogin()"/>
+</form>
+<script th:inline="javascript" type="text/javascript">
+    function validateLogin() {
+        var originator = $('#originator').val();
+
+        if (originator == null || originator == '') {
+            alert('댓글은 로그인 한 사용자만 작성할 수 있습니다. ');
+            return false;
+        }
+        submitForm.submit();
+    }
+</script>
+</body>
+</html>
