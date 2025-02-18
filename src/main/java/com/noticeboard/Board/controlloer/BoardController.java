@@ -53,6 +53,12 @@ public class BoardController {
         List<BoardDTO> boardList = boardService.getBoardList();
         model.addAttribute("boardList", boardList);
 
+        //조회수 높은 게시글 5개 조회
+        List<BoardDTO> highViewsBoard =  boardService.highViewsBoard();
+        if (!highViewsBoard.isEmpty()) {
+            model.addAttribute("highViewsBoard", highViewsBoard);
+        }
+
         //작성자 가져오기
         if (!boardList.isEmpty()) {
             for (int i = 0; i < boardList.size(); i++) {
@@ -94,6 +100,15 @@ public class BoardController {
         //해당하는 게시글의 댓글 조회
         List<ReplyDTO> replyList =  replyService.getReplyList(id);
         if (!replyList.isEmpty()) {
+            for (int i = 0; i < replyList.size(); i++) {
+                ReplyDTO replyDTO = replyList.get(i);
+                String origiantor = replyDTO.getOriginator();
+                UserDTO userDTO = userService.getUserInfo(origiantor);
+                if (userDTO != null) {
+                    String userName = userDTO.getName();
+                    replyDTO.setOriginator(userName);
+                }
+            }
             model.addAttribute("replyList", replyList);
         } else {
             model.addAttribute("replyList", new ArrayList<>());
