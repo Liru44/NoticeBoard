@@ -125,6 +125,15 @@
             document.getElementById('loginForm').submit();
         }
     }
+    $(document).ready(function () {
+        $('#password').on('paste', function (e) {
+            e.preventDefault();
+        });
+
+        $('#password').on('copy cut', function (e) {
+            e.preventDefault();
+        });
+    });
 </script>
 </div>
 </body>
