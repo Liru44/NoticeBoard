@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
 </head>
 <body>
-<div th:fragment="replyList(replyList)">
-    <ul>
-        <li th:each="reply : ${replyList}">
-            <strong th:text="${reply.originator}">작성자</strong>
-            <span th:text="${reply.content}">내용</span>
-        </li>
-    </ul>
+<div th:fragment="replyList(replyList)" class="reply-list">
+    <table>
+        <tr th:each="reply: ${replyList}">
+            <td th:text="${reply.originator}"></td>
+            <td th:text="${reply.content}"></td>
+            <td th:text="${reply.originate}"></td>
+        </tr>
+    </table>
 </div>
 </body>
 </html>

@@ -35,4 +35,8 @@ public class BoardRepository {
     public void deleteBoard(Long id) {
         sqlSessionTemplate.delete("Board.deleteBoard", id);
     }
+
+    public List<BoardDTO> highViewsBoard() {
+        return sqlSessionTemplate.selectList("Board.highViewsBoard");
+    }
 }
