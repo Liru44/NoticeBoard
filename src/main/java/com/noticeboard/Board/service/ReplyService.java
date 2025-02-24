@@ -23,4 +23,12 @@ public class ReplyService {
     public List<ReplyDTO> getReplyList(Long id) {
         return replyMapper.getReplyList(id);
     }
+
+    public void deleteReply(Long id) {
+        replyMapper.deleteReply(id);
+    }
+
+    public void editReply(Long id, String content) {
+        replyMapper.editReply(id, content);
+    }
 }

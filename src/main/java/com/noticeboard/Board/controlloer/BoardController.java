@@ -102,8 +102,8 @@ public class BoardController {
         if (!replyList.isEmpty()) {
             for (int i = 0; i < replyList.size(); i++) {
                 ReplyDTO replyDTO = replyList.get(i);
-                String origiantor = replyDTO.getOriginator();
-                UserDTO userDTO = userService.getUserInfo(origiantor);
+                String originator = replyDTO.getOriginator();
+                UserDTO userDTO = userService.getUserInfo(originator);
                 if (userDTO != null) {
                     String userName = userDTO.getName();
                     replyDTO.setOriginator(userName);

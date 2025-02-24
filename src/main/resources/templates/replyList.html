@@ -2,16 +2,113 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <div th:fragment="replyList(replyList)" class="reply-list">
     <table>
         <tr th:each="reply: ${replyList}">
-            <td th:text="${reply.originator}"></td>
-            <td th:text="${reply.content}"></td>
-            <td th:text="${reply.originate}"></td>
+            <td th:text="${reply.originator}" style="width: 10%;"></td>
+            <td id="content" th:text="${reply.content}" style="width: 60%;"></td>
+            <td th:text="${reply.originate}" style="width: 20%; font-size: 14px;"></td>
+            <td style="width: 10%;">
+                <input type="hidden" id="replyID" th:value="${reply.id}"/>
+                <a href="" onclick="editReply(this, event);" style="font-size: 12px;" id="editReply">수정</a>
+                <a href="" onclick="deleteReply(this, event)" style="font-size: 12px;" id="deleteReply">삭제</a>
+                <a href="" onclick="saveReply(this, event)" style="font-size: 12px; display: none;" id="saveReply">저장</a>
+                <a href="" onclick="cancelReply(this, event)" style="font-size: 12px; display: none;" id="cancelReply">취소</a>
+            </td>
         </tr>
     </table>
+    <script type="text/javascript">
+        //댓글 수정
+        function editReply(button, event) {
+            var row = button.closest('tr'); // 현재 행
+            var contentCell = row.querySelector('#content'); // 댓글 내용 셀
+            var currentContent = contentCell.textContent; // 기존 댓글 내용
+            var deleteButton =  row.querySelector('#deleteReply');
+            var saveReply =  row.querySelector('#saveReply');
+            var cancelButton =  row.querySelector('#cancelReply');
+
+            event.preventDefault();
+
+            // 입력 필드 생성
+            contentCell.innerHTML = `<textarea style="width: 100%">${currentContent}</textarea>`;
+
+            // 수정, 삭제 버튼 숨기기
+            button.style.display = 'none';
+            deleteButton.style.display = 'none';
+
+            // 저장, 취소 버튼 표시
+            saveReply.style.display = 'inline';
+            cancelButton.style.display = 'inline';
+        }
+
+        //댓글 삭제
+        function deleteReply(button, event) {
+            var row = button.closest('tr'); // 현재 행
+            var replyID = row.querySelector('#replyID').value;
+
+            event.preventDefault();
+
+            $.ajax({
+                type: "DELETE",
+                url : "/reply/delete",
+                data: {id : replyID},
+                success: function () {
+                    alert('삭제 완료되었습니다. ');
+                    row.remove();
+                },
+                error: function() {
+                    alert('서버 오류가 발생했습니다. ');
+                }
+            })
+        }
+
+        //댓글 저장
+        function saveReply(button, event) {
+            var row = button.closest('tr'); // 현재 행
+            var replyID = row.querySelector('#replyID').value;
+            var content = row.querySelector('#content');
+            var updateContent = content.querySelector('textarea').value;
+
+            event.preventDefault();
+
+            $.ajax({
+                type: "POST",
+                url : "/reply/edit",
+                data: {id : replyID, content : updateContent},
+                success: function () {
+                    content.innerHTML = updateContent;
+
+                    button.style.display = 'none';
+                    row.querySelector('#cancelReply').style.display = 'none';
+                    row.querySelector('#editReply').style.display = 'inline';
+                    row.querySelector('#deleteReply').style.display = 'inline';
+                },
+                error: function() {
+                    alert('서버 오류가 발생했습니다. ');
+                }
+            })
+        }
+
+        function cancelReply(button, event) {
+            var row = button.closest('tr');
+            var content = row.querySelector('#content');
+            var deleteButton = row.querySelector('#deleteReply');
+            var saveButton = row.querySelector('#saveReply');
+            var editButton = row.querySelector('#editReply');
+
+            event.preventDefault();
+
+            content.innerHTML = content.getAttribute("data-original-content");
+
+            button.style.display = 'none';
+            saveButton.style.display = 'none';
+            deleteButton.style.display = 'inline';
+            editButton.style.display = 'inline';
+        }
+    </script>
 </div>
 </body>
 </html>

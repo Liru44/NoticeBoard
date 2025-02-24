@@ -70,12 +70,26 @@
         .highViewsBoard {
             position: fixed;
             top: 24%; /* 스크롤 시 고정될 위치 */
-            right: 20%;
+            right: 15%;
             background: white;
             padding: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
             margin: 20px 0;
+        }
+
+        .highViewsBoard a {
+            color: black;
+            padding: 2px 2px;
+            background-color: white;
+            border-radius: 5px;
+            font-size: 15px;
+            margin: 20px 0;
+            display: inline-block;
+        }
+
+        li {
+            line-height:2%
         }
     </style>
 </head>
@@ -101,7 +115,7 @@
         </li>
     </ol>
 </div>
-<table>
+<table style="position: relative">
     <thead>
     <tr>
         <th>번호</th>

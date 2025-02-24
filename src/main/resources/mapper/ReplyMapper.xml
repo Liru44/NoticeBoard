@@ -8,6 +8,14 @@
     </insert>
 
     <select id="getReplyList" resultType="com.noticeboard.Board.dto.ReplyDTO">
-        SELECT content, originator, originate FROM reply WHERE board_id = #{id} ORDER BY originate ASC
+        SELECT id, content, originator, originate FROM reply WHERE board_id = #{id} ORDER BY originate ASC
     </select>
+
+    <delete id="deleteReply" parameterType="Long">
+        DELETE FROM reply WHERE id = #{id}
+    </delete>
+
+    <update id="editReply">
+        UPDATE reply SET content = #{content} WHERE id = #{id}
+    </update>
 </mapper>

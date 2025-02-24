@@ -10,4 +10,8 @@ public interface ReplyMapper {
     void newReply(ReplyDTO replyDTO);
 
     List<ReplyDTO> getReplyList(Long id);
+
+    void deleteReply(Long id);
+
+    void editReply(Long id, String content);
 }

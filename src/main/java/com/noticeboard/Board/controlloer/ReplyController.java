@@ -6,9 +6,9 @@ import com.noticeboard.Board.service.ReplyService;
 import com.noticeboard.Board.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -24,5 +24,19 @@ public class ReplyController {
         replyService.newReply(replyDTO);
 
         return "redirect:/board/" + id;
+    }
+
+    //댓글 삭제
+    @DeleteMapping("/reply/delete")
+    public ResponseEntity<String> deleteReply(@RequestParam("id") Long id) {
+        replyService.deleteReply(id);
+        return ResponseEntity.ok("댓글 삭제 완료");
+    }
+
+    //댓글 수정
+    @PostMapping("/reply/edit")
+    public ResponseEntity<String> editReply(@RequestParam("id") Long id, @RequestParam("content") String content) {
+        replyService.editReply(id, content);
+        return ResponseEntity.ok("댓글 수정 완료");
     }
 }
