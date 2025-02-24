@@ -1,5 +1,6 @@
 package com.noticeboard.Board.controlloer;
 
+import com.noticeboard.Board.StringUtil;
 import com.noticeboard.Board.component.CustomUserDetails;
 import com.noticeboard.Board.dto.BoardDTO;
 import com.noticeboard.Board.dto.ReplyDTO;
@@ -122,14 +123,25 @@ public class BoardController {
         if (isLoggedIn) {
             CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
             String userID = userDetails.getUsername();
+            String userName = userDetails.getName();
             String userRole = userDetails.getRole();
 
             //UserID model로 넘김
             model.addAttribute("userID", userID);
 
+            if (userRole.equals("ROLE_ADMIN")) {
+                model.addAttribute("userName", "ADMIN");
+            } else if (StringUtil.isNotEmpty(userName)) {
+                model.addAttribute("userName", userName);
+            } else {
+                model.addAttribute("userName", "");
+            }
+
             //작성자면 수정, 삭제 가능
-            if (userDetails.getUsername().equals(boardDTO.getOriginator()) || userRole.equals("ROLE_ADMIN")) {
-                model.addAttribute("originator", true);
+            if (StringUtil.isNotEmpty(userID)) {
+                if (userID.equals(boardDTO.getOriginator()) || userRole.equals("ROLE_ADMIN")) {
+                    model.addAttribute("originator", true);
+                }
             } else {
                 model.addAttribute("originator", false);
             }
