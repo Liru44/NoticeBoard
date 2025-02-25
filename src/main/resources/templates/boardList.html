@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>게시글 목록</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -137,5 +138,17 @@
     </tr>
     </tbody>
 </table>
+<div id="pagination">
+
+</div>
+<script type="text/javascript">
+    window.onload = function() {
+        var boardPage = [[${boardPage}]];
+
+        for (var i = 1; i <= boardPage; i++) {
+            $('<a style="background-color: #f9f9f9; color:black;" href="/boardList?page=' + i + '">').text(i).appendTo('#pagination');
+        }
+    };
+</script>
 </body>
 </html>

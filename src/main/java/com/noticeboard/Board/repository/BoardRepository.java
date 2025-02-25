@@ -5,7 +5,9 @@ import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
@@ -16,8 +18,11 @@ public class BoardRepository {
         sqlSessionTemplate.insert("Board.newBoard", boardDTO);
     }
 
-    public List<BoardDTO> getBoardList() {
-        return sqlSessionTemplate.selectList("Board.getBoardList");
+    public List<BoardDTO> getBoardList(int page, int defaultBoardCount) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("page", page);
+        params.put("defaultBoardCount", defaultBoardCount);
+        return sqlSessionTemplate.selectList("Board.getBoardList", params);
     }
 
     public void updateViews(Long id) {
@@ -39,4 +44,12 @@ public class BoardRepository {
     public List<BoardDTO> highViewsBoard() {
         return sqlSessionTemplate.selectList("Board.highViewsBoard");
     }
+
+    public int getBoardCount() {
+        return sqlSessionTemplate.selectOne("Board.getBoardCount");
+   }
+
+   public Long getBoardLastBoardId() {
+        return sqlSessionTemplate.selectOne("Board.getBoardLastBoardId");
+   }
 }

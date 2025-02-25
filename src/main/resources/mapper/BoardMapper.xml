@@ -8,7 +8,7 @@
     </insert>
 
     <select id="getBoardList" resultType="com.noticeboard.Board.dto.BoardDTO">
-        SELECT id, title, originator, views, date_format(originate, '%Y-%m-%d %H:%i:%s') AS originate FROM board ORDER BY id DESC
+        SELECT id, title, originator, views, DATE_FORMAT(originate, '%Y-%m-%d %H:%i:%s') AS originate FROM board ORDER BY id DESC LIMIT #{defaultBoardCount} OFFSET #{page}
     </select>
     
     <update id="updateViews" parameterType="Long">
@@ -29,5 +29,13 @@
 
     <select id="highViewsBoard" resultType="com.noticeboard.Board.dto.BoardDTO">
         SELECT id, title FROM board ORDER BY views DESC LIMIT 5;
+    </select>
+
+    <select id="getBoardCount" resultType="int">
+        SELECT COUNT(*) FROM board
+    </select>
+
+    <select id="getBoardLastBoardId" resultType="Long">
+        SELECT * FROM board ORDER BY id DESC LIMIT 1;
     </select>
 </mapper>

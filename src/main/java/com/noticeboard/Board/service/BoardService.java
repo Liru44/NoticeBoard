@@ -16,8 +16,8 @@ public class BoardService {
         boardRepository.newBoard(boardDTO);
     }
 
-    public List<BoardDTO> getBoardList() {
-        return boardRepository.getBoardList();
+    public List<BoardDTO> getBoardList(int page, int defaultBoardCount) {
+        return boardRepository.getBoardList(page, defaultBoardCount);
     }
 
     public void updateViews(Long id) {
@@ -38,5 +38,13 @@ public class BoardService {
 
     public List<BoardDTO> highViewsBoard() {
         return boardRepository.highViewsBoard();
+    }
+
+    public int getBoardCount() {
+        return boardRepository.getBoardCount();
+    }
+
+    public Long getBoardLastBoardId() {
+        return boardRepository.getBoardLastBoardId();
     }
 }

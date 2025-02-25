@@ -17,9 +17,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequiredArgsConstructor
@@ -50,9 +52,23 @@ public class BoardController {
 
     //게시글 목록 조회
     @GetMapping("/boardList")
-    public String getBoardList(Model model) {
-        List<BoardDTO> boardList = boardService.getBoardList();
+    public String getBoardList(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page, Model model) {
+        //게시글 갯수 가져오기
+        int boardCount = boardService.getBoardCount();
+        int defaultBoardCount = 15;
+
+        if (Objects.nonNull(page)) {
+            page = (page - 1) * 15;
+        } else {
+            page = 0;
+        }
+
+        List<BoardDTO> boardList = boardService.getBoardList(page, defaultBoardCount);
         model.addAttribute("boardList", boardList);
+
+        if (boardCount > defaultBoardCount) {
+            model.addAttribute("boardPage", (boardCount/15) + 1);
+        }
 
         //조회수 높은 게시글 5개 조회
         List<BoardDTO> highViewsBoard =  boardService.highViewsBoard();
