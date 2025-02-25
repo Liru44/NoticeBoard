@@ -5,8 +5,8 @@ import java.time.LocalDateTime;
 public class ReplyDTO {
     private String content;
     private String originator;
-    private LocalDateTime originate;
-    private Long board_id; // 외래키 (게시글 ID)
+    private String originate;
+    private Long boardID; // 외래키 (게시글 ID)
     private Long id;
 
     public Long getId() {
@@ -33,19 +33,19 @@ public class ReplyDTO {
         this.originator = originator;
     }
 
-    public LocalDateTime getOriginate() {
+    public String getOriginate() {
         return originate;
     }
 
-    public void setOriginate(LocalDateTime originate) {
+    public void setOriginate(String originate) {
         this.originate = originate;
     }
 
-    public Long getBoard_id() {
-        return board_id;
+    public Long getBoardID() {
+        return boardID;
     }
 
-    public void setBoard_id(Long board_id) {
-        this.board_id = board_id;
+    public void setBoardID(Long boardID) {
+        this.boardID = boardID;
     }
 }

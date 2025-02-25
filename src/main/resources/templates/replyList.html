@@ -13,6 +13,7 @@
             <td th:text="${reply.originate}" style="width: 20%; font-size: 14px;"></td>
             <td style="width: 10%;">
                 <input type="hidden" id="replyID" th:value="${reply.id}"/>
+                <input type="hidden" id="boardID" th:value="${reply.boardID}"/>
                 <a href="" onclick="editReply(this, event);" style="font-size: 12px;" id="editReply" th:if="${userName == reply.originator || userName == 'ADMIN'}">수정</a>
                 <a href="" onclick="deleteReply(this, event)" style="font-size: 12px;" id="deleteReply" th:if="${userName == reply.originator || userName == 'ADMIN'}">삭제</a>
                 <a href="" onclick="saveReply(this, event)" style="font-size: 12px; display: none;" id="saveReply">저장</a>
@@ -44,27 +45,6 @@
             cancelButton.style.display = 'inline';
         }
 
-        //댓글 삭제
-        function deleteReply(button, event) {
-            var row = button.closest('tr'); // 현재 행
-            var replyID = row.querySelector('#replyID').value;
-
-            event.preventDefault();
-
-            $.ajax({
-                type: "DELETE",
-                url : "/reply/delete",
-                data: {id : replyID},
-                success: function () {
-                    alert('삭제 완료되었습니다. ');
-                    row.remove();
-                },
-                error: function() {
-                    alert('서버 오류가 발생했습니다. ');
-                }
-            })
-        }
-
         //댓글 저장
         function saveReply(button, event) {
             var row = button.closest('tr'); // 현재 행
@@ -90,6 +70,20 @@
                     alert('서버 오류가 발생했습니다. ');
                 }
             })
+        }
+
+        function deleteReply(button, event) {
+            var row = button.closest('tr'); // 현재 행
+            var replyID = row.querySelector('#replyID').value;
+            var boardID = row.querySelector('#boardID').value;
+
+            event.preventDefault();
+
+            if (confirm('정말 삭제하시겠습니까?') == true) {
+                window.location.href = '/board/reply/delete/' + replyID + '/' + boardID;
+            } else {
+                return false;
+            }
         }
 
         function cancelReply(button, event) {

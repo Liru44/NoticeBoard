@@ -4,11 +4,11 @@
     <!-- sql문이 작성되는 공간  -->
     <insert id="newReply" parameterType="com.noticeboard.Board.dto.ReplyDTO">
         INSERT INTO reply(content, originator, board_id)
-            VALUE(#{content}, #{originator}, #{board_id})
+            VALUE(#{content}, #{originator}, #{boardID})
     </insert>
 
     <select id="getReplyList" resultType="com.noticeboard.Board.dto.ReplyDTO">
-        SELECT id, content, originator, originate FROM reply WHERE board_id = #{id} ORDER BY originate ASC
+        SELECT id, content, content, originator, date_format(originate, '%Y-%m-%d %H:%i:%s') AS originate, board_id AS boardID, id FROM reply WHERE board_id = #{id} ORDER BY originate DESC
     </select>
 
     <delete id="deleteReply" parameterType="Long">

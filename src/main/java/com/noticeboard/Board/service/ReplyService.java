@@ -1,5 +1,6 @@
 package com.noticeboard.Board.service;
 
+import com.noticeboard.Board.dto.BoardDTO;
 import com.noticeboard.Board.dto.ReplyDTO;
 import com.noticeboard.Board.mapper.ReplyMapper;
 import org.springframework.beans.factory.annotation.Autowired;

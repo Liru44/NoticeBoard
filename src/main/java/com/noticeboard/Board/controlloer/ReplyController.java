@@ -20,17 +20,17 @@ public class ReplyController {
 
     //댓글 작성
     @PostMapping("/reply")
-    public String newReply(@RequestParam("board_id") Long id, ReplyDTO replyDTO) {
+    public String newReply(@RequestParam("boardID") Long id, ReplyDTO replyDTO) {
         replyService.newReply(replyDTO);
 
         return "redirect:/board/" + id;
     }
 
     //댓글 삭제
-    @DeleteMapping("/reply/delete")
-    public ResponseEntity<String> deleteReply(@RequestParam("id") Long id) {
+    @GetMapping("/board/reply/delete/{id}/{boardID}")
+    public String deleteReply(@PathVariable("id") Long id, @PathVariable("boardID") Long boardID) {
         replyService.deleteReply(id);
-        return ResponseEntity.ok("댓글 삭제 완료");
+        return "redirect:/board/" + boardID;
     }
 
     //댓글 수정
