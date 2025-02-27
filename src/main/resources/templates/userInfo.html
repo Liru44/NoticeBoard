@@ -1,12 +1,84 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>사용자 상세 조회</title>
+  <meta charset="UTF-8">
+  <title>사용자 상세 조회</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    .container {
+      width: 100%;
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .detail-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .detail-table th {
+      background: #4CAF50;
+      color: white;
+      font-weight: bold;
+      padding: 12px;
+      text-align: left;
+      width: 25%;
+      white-space: nowrap;
+    }
+
+    .detail-table td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .detail-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .button-group {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      margin: 5px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .btn.primary {
+      background: #4CAF50;
+      color: white;
+    }
+
+    .btn.primary:hover {
+      background: #45a049;
+    }
+
+    .btn.secondary {
+      background: #ddd;
+      color: black;
+    }
+
+    .btn.secondary:hover {
+      background: #bbb;
+    }
+  </style>
 </head>
 <body>
 <div class="container">
-  <table>
+  <table class="detail-table">
     <tr>
       <th>ID</th>
       <td th:text="${user.id}"></td>
@@ -24,12 +96,15 @@
       <td th:text="${user.phone}"></td>
     </tr>
     <tr>
-      <th>권한</th>
+      <th>유저정보</th>
       <td th:text="${user.role}"></td>
     </tr>
   </table>
 </div>
-<a th:href="@{edit/{id}(id=${user.id})}">회원정보 수정</a>
-<a href="javascript:history.back();">취소</a>
+<div class="button-group">
+  <a th:href="@{/user/edit/{id}(id=${user.id})}">회원정보 수정</a>
+  <th> / </th>
+  <a href="/boardList">게시판으로 돌아가기</a>
+</div>
 </body>
 </html>

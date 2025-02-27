@@ -195,4 +195,22 @@ public class BoardController {
         boardService.deleteBoard(id);
         return "redirect:/boardList";
     }
+
+    @GetMapping("/userinfo")
+    public String getUserInfo(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated() || authentication.getPrincipal() instanceof String) {
+            return "redirect:/login";
+        }
+
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        UserDTO user = userService.getUserInfo(userDetails.getUsername());
+
+        if (user == null) {
+            return "redirect:/";
+        }
+
+        model.addAttribute("user", user);
+        return "userinfo";
+    }
 }

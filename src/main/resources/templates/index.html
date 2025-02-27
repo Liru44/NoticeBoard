@@ -3,11 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <title>게시판</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .button-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            justify-items: center;
+        }
+
+        a {
+            display: block;
+            padding: 15px;
+            font-size: 18px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #4CAF50;
+            border-radius: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #45a049;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        a:active {
+            background-color: #3e8e41;
+            transform: translateY(0);
+        }
+
+        @media screen and (max-width: 600px) {
+            h1 {
+                font-size: 28px;
+            }
+            .button-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-<a href="/newBoard">작성</a>
-<a href="/boardList">목록</a>
-<a href="/login">로그인</a>
-<a href="/signup">회원가입</a>
+<div class="container">
+    <h1>메인페이지</h1>
+    <div class="button-container">
+        <a href="/boardList">게시판목록</a>
+        <a href="/login">로그인</a>
+        <a href="/signup">회원가입</a>
+    </div>
+</div>
 </body>
 </html>

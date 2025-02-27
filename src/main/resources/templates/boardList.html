@@ -25,6 +25,27 @@
             position: relative;
         }
 
+        .auth-buttons {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .auth-buttons a {
+            text-decoration: none;
+            color: white;
+            background-color: #4CAF50;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 14px;
+            margin: 10px;
+        }
+
+        .auth-buttons a:hover {
+            background-color: #45a049;
+        }
+
         a {
             text-decoration: none;
             color: white;
@@ -70,7 +91,7 @@
 
         .highViewsBoard {
             position: fixed;
-            top: 24%; /* 스크롤 시 고정될 위치 */
+            top: 24%;
             right: 15%;
             background: white;
             padding: 10px;
@@ -90,7 +111,7 @@
         }
 
         li {
-            line-height:2%
+            line-height: 2%
         }
     </style>
 </head>
@@ -100,6 +121,7 @@
         <div class="auth-buttons" th:if="${userName != null and userName != ''}">
             <a id="logout" href="/logout">로그아웃</a>
             <a id="adminPage" th:if="${role != null and #lists.contains(role, 'ROLE_ADMIN')}" href="/adminPage">관리자 페이지</a>
+            <a id="userinfo" th:if="${role != null and #lists.contains(role, 'ROLE_USER')}" href="/userinfo">내정보</a>
         </div>
         <div class="auth-buttons" th:unless="${userName != null and userName != ''}">
             <a id="login" href="/login">로그인</a>

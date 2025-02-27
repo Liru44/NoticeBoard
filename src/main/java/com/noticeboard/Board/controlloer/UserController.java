@@ -88,7 +88,7 @@ public class UserController {
 
         userDTO = userService.getUserInfo(userDTO.getId());
         model.addAttribute("user", userDTO);
-        return "redirect:/user" + userDTO.getId();
+        return "redirect:/userinfo";
     }
 
     @GetMapping("/changePassword/{userID}")
