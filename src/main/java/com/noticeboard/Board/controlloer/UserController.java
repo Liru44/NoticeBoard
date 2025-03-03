@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
 
 @Slf4j
@@ -91,6 +90,7 @@ public class UserController {
         return "redirect:/userinfo";
     }
 
+    //비밀번호 변경
     @GetMapping("/changePassword/{userID}")
     public String changePassword(@PathVariable("userID") String id, Model model) {
         model.addAttribute("userID", id);
