@@ -19,10 +19,27 @@
             width: 100%;
             background-color: #4CAF50;
             color: white;
-            padding: 15px;
+            padding: 10px 20px;
             text-align: center;
             font-size: 1.5em;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            margin: 20px 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+            background-color: #4CAF50;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 14px;
+            margin: 0 10px;
+        }
+
+        a:hover {
+            background-color: #45a049;
         }
 
         .container {
@@ -35,39 +52,30 @@
             border-radius: 8px;
         }
 
-        h1 {
+        .container h1 {
             font-size: 1.5em;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             text-align: center;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        .container label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
         }
 
-        table td {
+        .container input, .container textarea {
+            width: 97%;
             padding: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        input[type="text"], textarea {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
+            margin-bottom: 20px;
             border: 1px solid #ccc;
             border-radius: 4px;
             font-size: 14px;
         }
 
-        textarea {
-            resize: vertical;
-        }
-
         .button-group {
             display: flex;
             justify-content: space-between;
-            margin-top: 20px;
         }
 
         .button-group input {
@@ -95,46 +103,43 @@
     </style>
 </head>
 <body>
-<form th:action="@{/board/edit/id(id=${board.id})}" method="post" id="editForm" name="editForm">
-<table>
-    <tr>
-        <td>번호</td>
-        <td th:text="${board.id}"></td>
-    </tr>
-    <tr>
-        <td>제목</td>
-        <td>
-            <input type="text" name="title" th:value="${board.title}">
-        </td>
-    </tr>
-    <tr>
-        <td>내용</td>
-        <td>
-            <textarea name="content" cols="30" rows="10" th:text="${board.content}"></textarea>
-        </td>
-    </tr>
-</table>
-<input type="button" value="수정" onclick="board_update(event)"/>
-<input type="button" value="취소" onclick="history.back();"/>
-</form>
-</body>
+<header>게시글 수정</header>
+<nav>
+    <a href="/boardList">목록</a>
+</nav>
+<div class="container">
+    <h1>게시글 수정</h1>
+    <form th:action="@{/board/edit/id(id=${board.id})}" method="post" id="editForm" name="editForm">
+        <label for="title">제목</label>
+        <input type="text" id="title" name="title" th:value="${board.title}">
+
+        <label for="content">내용</label>
+        <textarea id="content" name="content" rows="10" th:text="${board.content}"></textarea>
+
+        <div class="button-group">
+            <input type="button" value="수정" onclick="board_update(event)"/>
+            <input type="button" value="취소" onclick="history.back();"/>
+        </div>
+    </form>
+</div>
 <script type="text/javascript">
     function board_update(event) {
         var title = $('#title').val();
-        var content = $('#content').text();
+        var content = $('#content').val();
 
         event.preventDefault();
 
-        if (title == null && title == '') {
-            alert('제목을 입력해 주십시오. ');
+        if (!title.trim()) {
+            alert('제목을 입력해 주십시오.');
             $('#title').focus();
             return false;
-        } else if (content == null && content == '') {
-            alert('내용을 입력해 주십시오. ')
+        } else if (!content.trim()) {
+            alert('내용을 입력해 주십시오.');
             $('#content').focus();
             return false;
         }
         editForm.submit();
     }
 </script>
+</body>
 </html>
