@@ -1,6 +1,5 @@
 package com.noticeboard.Board.mapper;
 
-import com.noticeboard.Board.dto.BoardDTO;
 import com.noticeboard.Board.dto.ReplyDTO;
 import org.apache.ibatis.annotations.Mapper;
 
